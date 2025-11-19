@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script>
+tailwind = { config:{ darkMode:"class" } }
+</script>
+<script src="https://cdn.tailwindcss.com"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd"></script>
+
+</head>
+
+<body class="p-6 bg-white text-gray-900">
+
+<h2 class="text-2xl font-bold mb-4">🖼 Mengenal Objek</h2>
+
+<input type="file" id="inputObject" class="mb-4 p-2 border rounded" accept="image/*"/>
+
+<button onclick="detectObject()" 
+        class="px-4 py-2 bg-green-600 text-white rounded-lg">
+        Deteksi
+</button>
+
+<div class="mt-4">
+    <canvas id="canvas" class="rounded shadow border"></canvas>
+</div>
+
+<pre id="objResult" class="mt-4 bg-gray-100 p-4 rounded text-gray-900"></pre>
+
+<script>
+let modelObj = null;
+
+cocoSsd.load().then(m => {
+    modelObj = m;
+    console.log("Model siap!");
+});
+
+async function detectObject(){
+    if (!modelObj) return alert("Model belum siap!");
+
+    const file = inputObject.files[0];
+    if (!file) return alert("Pilih gambar dulu!");
+
+    const imgURL = URL.createObjectURL(file);
+    const img = new Image();
+    img.src = imgURL;
+
+    img.onload = async () => {
+        const canvas = document.getElementById("canvas");
+        const ctx = canvas.getContext("2d");
+
+        canvas.width = img.width;
+        canvas.height = img.height;
+
+        ctx.drawImage(img, 0, 0, img.width, img.height);
+
+        const predictions = await modelObj.detect(img);
+        objResult.textContent = JSON.stringify(predictions, null, 2);
+
+        predictions.forEach(p => {
+            const [x, y, w, h] = p.bbox;
+
+            ctx.strokeStyle = "lime";
+            ctx.lineWidth = 3;
+            ctx.strokeRect(x, y, w, h);
+
+            ctx.fillStyle = "lime";
+            ctx.font = "18px Arial";
+            ctx.fillText(`${p.class} ${(p.score * 100).toFixed(1)}%`, x, y > 20 ? y - 5 : y + 20);
+        });
+    };
+}
+</script>
+
+</body>
+</html>

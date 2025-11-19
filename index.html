@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🚀 Tugas Deep Learning By Setiady</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+/* ============================
+   RESPONSIVE MOBILE
+=============================== */
+@media (max-width: 768px) {
+
+    .d-flex {
+        flex-direction: column !important;
+    }
+
+    .sidebar {
+        display: flex;
+        flex-direction: row;
+        overflow-x: auto;
+        min-height: auto;
+        padding: 10px !important;
+        gap: 10px;
+        white-space: nowrap;
+    }
+
+    .link-item {
+        padding: 10px 14px;
+        margin-bottom: 0;
+        font-size: 14px;
+        display: inline-block;
+        min-width: max-content;
+    }
+
+    #frame {
+        height: 70vh;
+    }
+
+    .hybrid.text-center h2 {
+        font-size: 1.3rem;
+    }
+
+    #toggleTheme {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+        top: 10px;
+        right: 10px;
+    }
+}
+
+/* =======================================================
+   THEME BASE
+======================================================= */
+:root {
+  --glass-bg: rgba(255,255,255,0.35);
+  --glass-border: rgba(255,255,255,0.4);
+  --text: #222;
+  --bg: #dfe6f1;
+  --neu-light: #ffffff;
+  --neu-dark: #b8bec8;
+}
+
+[data-theme="dark"] {
+  --glass-bg: rgba(0,0,0,0.35);
+  --glass-border: rgba(255,255,255,0.2);
+  --text: #f0f0f5;
+  --bg: #16171d;
+  --neu-light: #2a2b33;
+  --neu-dark: #0e0e13;
+}
+
+/* =======================================================
+   GLOBAL
+======================================================= */
+body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Poppins", sans-serif;
+    transition: 0.3s ease;
+}
+
+/* =======================================================
+   HYBRID CARD
+======================================================= */
+.hybrid {
+    background: var(--glass-bg);
+    border-radius: 18px;
+    padding: 18px;
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+
+    box-shadow:
+        9px 9px 20px var(--neu-dark),
+        -9px -9px 20px var(--neu-light);
+}
+
+/* =======================================================
+   SIDEBAR
+======================================================= */
+.sidebar {
+    min-height: 100vh;
+}
+
+.link-item {
+    padding: 14px;
+    border-radius: 14px;
+    margin-bottom: 12px;
+    text-decoration: none;
+    color: var(--text);
+    display: block;
+
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(14px);
+
+    box-shadow:
+        5px 5px 12px var(--neu-dark),
+        -5px -5px 12px var(--neu-light);
+
+    transition: 0.25s;
+}
+
+.link-item:hover {
+    transform: translateX(12px) scale(1.03);
+    background: rgba(255,255,255,0.45);
+}
+
+/* =======================================================
+   IFRAME
+======================================================= */
+#frame {
+    width: 100%;
+    height: 82vh;
+    border-radius: 18px;
+    border: none;
+
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(18px);
+
+    box-shadow:
+        8px 8px 20px var(--neu-dark),
+        -8px -8px 20px var(--neu-light);
+}
+
+/* =======================================================
+   THEME BUTTON
+======================================================= */
+#toggleTheme {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 48px;
+    height: 48px;
+    border: none;
+    border-radius: 50%;
+    font-size: 20px;
+    cursor: pointer;
+
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(10px);
+
+    box-shadow:
+        5px 5px 12px var(--neu-dark),
+        -5px -5px 12px var(--neu-light);
+}
+
+#toggleTheme:hover {
+    transform: scale(1.1);
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<div class="hybrid text-center position-relative m-3">
+    <h2 class="fw-bold">🚀 Tugas Deep Learning</h2>
+    <p class="mb-0">Setiady Tri Friandika | 51422525 | 4IA03</p>
+
+    <button id="toggleTheme">🌙</button>
+</div>
+
+<!-- LAYOUT -->
+<div class="d-flex">
+
+<!-- SIDEBAR -->
+<div class="col-3 p-3 sidebar">
+    <a class="link-item fw-bold" onclick="loadPage('home')">📚 Daftar Tugas</a>
+    <a class="link-item" onclick="loadPage('calculator')">🧮 Kalkulator Logika</a>
+    <a class="link-item" onclick="loadPage('bidirectional')">🌿 Prediksi Kata</a>
+    <a class="link-item" onclick="loadPage('saham')">📈 Prediksi Harga Saham</a>
+    <a class="link-item" onclick="loadPage('object')">🖼 Mengenal Object</a>
+</div>
+
+<!-- CONTENT -->
+<div class="col-9 p-3">
+    <iframe id="frame" class="hybrid"></iframe>
+</div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="text-center py-2 hybrid m-3">
+    © 2025 Setiady Tri Friandika — Semua Hak Dilindungi
+</div>
+
+<script>
+function loadPage(page){
+    document.getElementById("frame").src = "pages/" + page + ".html";
+}
+
+/* TOUCH DARK MODE */
+const root = document.documentElement;
+const btn = document.getElementById("toggleTheme");
+
+function setTheme(mode){
+    root.setAttribute("data-theme", mode);
+    localStorage.setItem("theme", mode);
+    btn.textContent = mode === "dark" ? "☀️" : "🌙";
+}
+
+btn.onclick = () => {
+    setTheme(root.getAttribute("data-theme") === "dark" ? "light" : "dark");
+};
+
+setTheme(localStorage.getItem("theme") || "light");
+</script>
+
+</body>
+</html>

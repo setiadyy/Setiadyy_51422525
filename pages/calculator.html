@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+
+<script>
+tailwind = { config:{ darkMode:"class" } }
+</script>
+<script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+
+<body class="p-6 bg-white text-black flex justify-center">
+
+<div class="w-full max-w-lg text-center">
+
+    <!-- TITLE -->
+    <h2 class="text-3xl font-bold text-black mb-2 flex items-center justify-center">
+        <img src="https://img.icons8.com/color/48/000000/abacus.png" class="w-10 h-10 mr-2">
+        Kalkulator Logika
+    </h2>
+
+    <!-- ROW A & B -->
+    <div class="grid grid-cols-2 gap-4 my-6">
+        <div>
+            <label class="font-semibold block mb-1 text-black">A</label>
+            <select id="A" class="w-full p-2 rounded border text-black">
+                <option value="0">0 (False)</option>
+                <option value="1">1 (True)</option>
+            </select>
+        </div>
+
+        <div>
+            <label class="font-semibold block mb-1 text-black">B</label>
+            <select id="B" class="w-full p-2 rounded border text-black">
+                <option value="0">0 (False)</option>
+                <option value="1">1 (True)</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- OPERATOR -->
+    <p class="mt-2 mb-1 font-semibold text-black">Operator Logika</p>
+    <select id="operator" class="w-full p-2 rounded border text-black">
+        <option>AND</option>
+        <option>OR</option>
+        <option>XOR</option>
+        <option>NAND</option>
+        <option>NOR</option>
+        <option>XNOR</option>
+    </select>
+
+    <!-- BUTTON -->
+    <button onclick="hitungLogika()" 
+        class="mt-6 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition">
+        Hitung
+    </button>
+
+    <!-- HASIL -->
+    <p class="mt-8 text-black">Hasil akan muncul di bawah ini:</p>
+    <p class="text-3xl font-bold mt-2 text-black">
+        <span id="hasilLogika">-</span>
+    </p>
+
+</div>
+
+<script>
+function hitungLogika(){
+    const a = Number(A.value);
+    const b = Number(B.value);
+    const op = operator.value;
+
+    let hasil = {
+        AND: a & b,
+        OR: a | b,
+        XOR: a ^ b,
+        NAND: 1 - (a & b),
+        NOR: 1 - (a | b),
+        XNOR: 1 - (a ^ b)
+    }[op];
+
+    hasilLogika.textContent = hasil;
+}
+</script>
+
+</body>
+</html>

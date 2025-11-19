@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<!-- BODY LIGHT MODE -->
+<body class="p-6 bg-white text-black transition-all">
+
+<!-- NAVBAR -->
+<div class="flex justify-between items-center mb-6">
+    <h2 class="text-2xl font-bold text-black">🌿 Prediksi Kata (Bidirectional)</h2>
+</div>
+
+<!-- INPUT -->
+<input
+    id="textInput"
+    class="w-full p-3 rounded bg-gray-100 border border-gray-300 text-black"
+    placeholder="Masukkan kalimat..."
+/>
+
+<!-- TOMBOL -->
+<button id="btnPredict"
+    class="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-500 transition">
+    Prediksi Berikutnya
+</button>
+
+<!-- OUTPUT -->
+<p id="output" class="mt-4 text-lg font-semibold text-black"></p>
+
+
+<!-- SCRIPT -->
+<script>
+
+document.getElementById("btnPredict").addEventListener("click", () => {
+    const text = document.getElementById("textInput").value.trim();
+
+    if (!text) {
+        document.getElementById("output").textContent = "⚠ Masukkan kalimat terlebih dahulu.";
+        return;
+    }
+
+    const fakeWords = ["hujan", "dingin", "cerah", "panas"];
+    const random = fakeWords[Math.floor(Math.random() * fakeWords.length)];
+
+    document.getElementById("output").textContent =
+        `Prediksi kata berikutnya: ⭐ "${random}"`;
+});
+
+</script>
+
+</body>
+</html>
